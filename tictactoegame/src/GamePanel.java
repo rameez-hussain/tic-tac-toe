@@ -1,33 +1,39 @@
+
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import javax.swing.event.MouseInputListener;
 
 public class GamePanel extends Panel implements MouseMotionListener, MouseInputListener {
-	
-    private Grid grid;
 
+	
+	private Grid grid;
+	
 	public GamePanel(Color color) {
 		super(color);
-
-        grid = new Grid();
+		
+		grid = new Grid();
 	}
 
 	@Override
 	public void update(float deltaTime) {
-        super.update(deltaTime);
-        
-        grid.update(deltaTime);
+		super.update(deltaTime);
+		
+		grid.update(deltaTime);
 	}
 	
 	@Override
 	public void render() {
-        super.render();
-
-        grid.render(graphicsRender);
-
-        super.clear();
+		super.render();
+		
+		grid.render(graphicsRender);
+		
+		super.clear();
 	}
+	
+	
+	
+	
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -40,6 +46,11 @@ public class GamePanel extends Panel implements MouseMotionListener, MouseInputL
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		if(grid.isGameEnd()) {
+			grid.reset();
+		}
+		
+		grid.mouseReleased(e);
 	}
 
 	@Override
@@ -59,6 +70,7 @@ public class GamePanel extends Panel implements MouseMotionListener, MouseInputL
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		grid.mouseMoved(e);
 	}
 
 }
